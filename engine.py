@@ -5,6 +5,8 @@ import json
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from datetime import datetime
+import os.path
+from SWChecker.SWChecker import SWChecker
 
 # Login
 username="na_ratnaa"
@@ -67,4 +69,31 @@ for x in range(len(feeds)):
 	finally:
 		pass
 	# print(feeds[x])
+	print("----END-----\n")
+
+
+# Standard words checker
+print("----STANDARD WORDS CHECKER-----")
+dictFile = os.path.dirname(os.path.realpath(__file__))+"/improveDict.txt"
+swChecker = SWChecker(dictFile)
+
+# text = "Nah, buat nemenin pagi kamu gimana kalau hapal aja"
+# text = "Saya adalah seorang atlit tauladan esei aja"
+# print(text)
+# stdText = swChecker.check(text)
+# print(stdText)
+
+for x in range(len(feeds)):
+	print("----START-----")
+	try:
+		originalSentence = feeds[x]['caption']['text']
+		print("Original -> ", originalSentence)
+		standardSentence = swChecker.check(originalSentence)
+		print("Standard -> ", standardSentence)
+	except Exception as e:
+		print("Tidak ada text") 
+	else:
+		pass
+	finally:
+		pass
 	print("----END-----\n")
