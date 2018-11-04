@@ -1,4 +1,9 @@
 # Jonah Berger, Contagious https://www.youtube.com/watch?v=iRMdvhBiOQU
+# Crawling Data -> Slangword -> Stopword -> Stemming -> STEPPS clustering
+# Reference:
+# Pramudita, (2011) "PENERAPAN ALGORITMA STEMMING NAZIEF & ADRIANI DAN SIMILARITY PADA PENERIMAAN JUDUL THESIS"
+# Asian J. (2007) "Effective Techniques for Indonesian Text Retrieval". page 61
+# Zulfa, Ira. (2017) "Sentimen Analisis Tweet Berbahasa Indonesia dengan Deep Belief Network"
 
 from InstagramAPI import InstagramAPI
 import json
@@ -17,40 +22,22 @@ InstagramAPI.login()
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
 
-# # Abaikan ini pekerjaan saya, belum beres
-# s = 'Aku pernah mendengar Aisya bercerita bahwa sebenarnya ia tidak terlalu senang dengan kabar perjodohan yang diatur oleh orang tuanya.'
- 
-# #Create factory
-# stop_factory = StopWordRemoverFactory()
- 
-# # Tambahkan Stopword Baru
-# data = stop_factory.get_stop_words() #+more_stopword
- 
-# stopword = stop_factory.create_stop_word_remover()
-# print(s)
-# print(stopword.remove(s))
-# print(data)
+# Stopword Removal
+stop_factory = StopWordRemoverFactory()
+stopword = stop_factory.create_stop_word_remover()
+data = stop_factory.get_stop_words()
 
-# # # stopwords remove
-# # stop_factory = StopWordRemoverFactory()
-# # more_stopword = ['dengan', 'ia','bahwa','oleh', 'aja', 'nih', 'yg', 'nge']
-# # data = stop_factory.get_stop_words()+more_stopword
-# # stopword = stop_factory.create_stop_word_remover()
-
-# # kalimat = 'Mangga akang" celana jeans nya.. Warna hanya hitam aja.. Size kumplit.. 082217089975'
-# # stop = stopword.remove(kalimat)
-# # print(stop)
-
-# Get personal profile
-InstagramAPI.getProfileData()
-result = InstagramAPI.LastJson
-print(result)
+# Standar Word Checker
+dictFile = os.path.dirname(os.path.realpath(__file__))+"/improveDict.txt"
+swChecker = SWChecker(dictFile)
+print(dictFile)
 
 # Get from timeline
 InstagramAPI.timelineFeed()
 result = InstagramAPI.LastJson
 feeds = result['items']
 
+print("----CRAWLING FROM INSTAGRAM-----")
 for x in range(len(feeds)):
 	print("----START-----")
 	try:
@@ -60,8 +47,10 @@ for x in range(len(feeds)):
 		print("Caption -> ", sentence)
 		print("Timestamp -> ", timestamp)
 		print("Like Count -> ", like_count)
-		output = stemmer.stem(sentence)
-		print("Stemming -> ", output)
+		stopwordsSentence = stopword.remove(sentence)
+		standardSentence = swChecker.check(stopwordsSentence)
+		stemmedSentence = stemmer.stem(standardSentence)
+		print("Stemming -> ", stemmedSentence)
 	except Exception as e:
 		print("Tidak ada text") 
 	else:
@@ -69,31 +58,4 @@ for x in range(len(feeds)):
 	finally:
 		pass
 	# print(feeds[x])
-	print("----END-----\n")
-
-
-# Standard words checker
-print("----STANDARD WORDS CHECKER-----")
-dictFile = os.path.dirname(os.path.realpath(__file__))+"/improveDict.txt"
-swChecker = SWChecker(dictFile)
-
-# text = "Nah, buat nemenin pagi kamu gimana kalau hapal aja"
-# text = "Saya adalah seorang atlit tauladan esei aja"
-# print(text)
-# stdText = swChecker.check(text)
-# print(stdText)
-
-for x in range(len(feeds)):
-	print("----START-----")
-	try:
-		originalSentence = feeds[x]['caption']['text']
-		print("Original -> ", originalSentence)
-		standardSentence = swChecker.check(originalSentence)
-		print("Standard -> ", standardSentence)
-	except Exception as e:
-		print("Tidak ada text") 
-	else:
-		pass
-	finally:
-		pass
 	print("----END-----\n")

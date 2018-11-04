@@ -651,3 +651,12 @@ taoge|toge
 tobat|taubat
 triliun|trilyun
 visi|vissi
+bersama|bareng
+terus|trs
+terus|trus
+pria|cowok
+pria|cowo
+wanita|cewe
+wanita|cwe
+saya|gw
+saya|gue
