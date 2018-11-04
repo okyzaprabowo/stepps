@@ -660,3 +660,4 @@ wanita|cewe
 wanita|cwe
 saya|gw
 saya|gue
+ayah|bokap
