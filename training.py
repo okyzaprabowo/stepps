@@ -28,7 +28,7 @@ def searchByUsername(username):
 			items = data['items']
 			if len(items) > 0:
 				for item in items:
-					print('Timestamp : ', item['taken_at'], ' (', datetime.utcfromtimestamp(item['taken_at']).strftime('%Y-%m-%d %H:%M:%S'), ') with total Likes: ', item['like_count'])
+					print('Timestamp : ', item['taken_at'], ' (', datetime.utcfromtimestamp(item['taken_at']).strftime('%Y-%m-%d %H:%M:%S'), ') with total Likes: ', item['like_count'], ' Text : ', item['caption']['text'])
 		else:
 			print('Account is private')
 
