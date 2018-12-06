@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>STEPPS Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- styles -->
+		<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'tabulator/css/tabulator.min.css' %}">
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="{% static 'js/custom.js' %}"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'tabulator/js/tabulator.min.js' %}"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  	<div class="header">
+	     <div class="container">
+	        <div class="row">
+	           <div class="col-md-5">
+	              <!-- Logo -->
+	              <div class="logo">
+	                 <h1><a href="index.html">STEPPS Admin Dashboard</a></h1>
+	              </div>
+	           </div>
+	        </div>
+	     </div>
+	</div>
+
+    <div class="page-content">
+    	<div class="row">
+		  <div class="col-md-2">
+		  	<div class="sidebar content-box" style="display: block;">
+                <ul class="nav">
+                    <!-- Main menu -->
+										<li class="current"><a href="{{ STATIC_URL }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+										<li class="current"><a href="http://192.168.10.10:8000"><i class="glyphicon glyphicon-home"></i> Logout</a></li>
+                </ul>
+             </div>
+		  </div>
+		  <div class="col-md-10">
+
+			<!-- Result table -->
+		  	<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="content-box-header">
+								<div class="panel-title">Social Currency</div>
+								
+								<div class="panel-options">
+									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+								</div>
+							</div>
+							<div class="content-box-large box-with-header">
+								
+								Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
+								<br /><br />
+								<div id="sc-table"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="content-box-header">
+								<div class="panel-title">Trigger</div>
+								
+								<div class="panel-options">
+									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+								</div>
+							</div>
+							<div id="example-table"></div>
+							<div class="content-box-large box-with-header">
+								
+								Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
+								<br /><br />
+								<div id="t-table"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			  </div>
+			  <div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="content-box-header">
+									<div class="panel-title">Emotion</div>
+									
+									<div class="panel-options">
+										<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+										<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+									</div>
+								</div>
+								<div class="content-box-large box-with-header">
+									
+									Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
+									<br /><br />
+									<div id="e-table"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="content-box-header">
+									<div class="panel-title">Public</div>
+									
+									<div class="panel-options">
+										<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+										<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+									</div>
+								</div>
+								<div class="content-box-large box-with-header">
+									
+									Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
+									<br /><br />
+									<div id="pu-table"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="row">
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="content-box-header">
+										<div class="panel-title">Practical Value</div>
+										
+										<div class="panel-options">
+											<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+											<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+										</div>
+									</div>
+									<div class="content-box-large box-with-header">
+										
+										Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
+										<br /><br />
+										<div id="pr-table"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="content-box-header">
+										<div class="panel-title">Story</div>
+										
+										<div class="panel-options">
+											<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+											<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+										</div>
+									</div>
+									<div class="content-box-large box-with-header">
+										
+										Pellentesque luctus quam quis consequat vulputate. Sed sit amet diam ipsum. Praesent in pellentesque diam, sit amet dignissim erat. Aliquam erat volutpat. Aenean laoreet metus leo, laoreet feugiat enim suscipit quis. Praesent mauris mauris, ornare vitae tincidunt sed, hendrerit eget augue. Nam nec vestibulum nisi, eu dignissim nulla.
+										<br /><br />
+										<div id="st-table"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			  
+		  </div>
+		</div>
+    </div>
+
+    <footer>
+         <div class="container">
+         
+            <div class="copy text-center">
+               Copyright 2018 <a href='#'>STEPPS Dashboard</a>
+            </div>
+            
+         </div>
+		</footer>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+  </body>
+</html>
