@@ -4,6 +4,8 @@
 # Pramudita, (2011) "PENERAPAN ALGORITMA STEMMING NAZIEF & ADRIANI DAN SIMILARITY PADA PENERIMAAN JUDUL THESIS"
 # Asian J. (2007) "Effective Techniques for Indonesian Text Retrieval". page 61
 # Zulfa, Ira. (2017) "Sentimen Analisis Tweet Berbahasa Indonesia dengan Deep Belief Network"
+# Revision:
+# Like / Jumlah Follower = Engagement
 
 from InstagramAPI import InstagramAPI
 import json
@@ -12,6 +14,7 @@ from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFacto
 from datetime import datetime
 import os.path
 from SWChecker.SWChecker import SWChecker
+from OHelper.Prosa import Prosa
 
 # Login
 username="na_ratnaa"
@@ -21,6 +24,7 @@ InstagramAPI.login()
 # create stemmer
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
+prosaHelper = Prosa()
 
 # Stopword Removal
 stop_factory = StopWordRemoverFactory()
@@ -47,9 +51,10 @@ for x in range(len(feeds)):
 		print("Caption -> ", sentence)
 		print("Timestamp -> ", timestamp)
 		print("Like Count -> ", like_count)
-		stopwordsSentence = stopword.remove(sentence)
-		standardSentence = swChecker.check(stopwordsSentence)
-		stemmedSentence = stemmer.stem(standardSentence)
+		standardSentence = swChecker.check(sentence)
+		stopwordsSentence = stopword.remove(standardSentence)
+		normalizeSentence = prosaHelper.normalize(stopwordsSentence)
+		stemmedSentence = stemmer.stem(normalizeSentence)
 		print("Stemming -> ", stemmedSentence)
 	except Exception as e:
 		print("Tidak ada text") 
