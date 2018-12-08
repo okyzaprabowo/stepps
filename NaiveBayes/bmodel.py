@@ -33,17 +33,12 @@ train_x, test_x, train_y, test_y = train_test_split(x_train_tfidf, varietal_list
 clf = LinearSVC().fit(train_x, train_y)
 y_score = clf.predict(test_x)
 
-n_right = 0
-for i in range(len(y_score)):
-    if y_score[i] == test_y[i]:
-        n_right += 1
-
 print("Accuracy:", accuracy_score(test_y, y_score))
-# print("Precision:", precision_score(test_y, y_score, average=None))
+print("Precision:", precision_score(test_y, y_score, average=None))
 # print(classification_report(test_y, y_score))
-# print(confusion_matrix(test_y, y_score))
+print(confusion_matrix(test_y, y_score))
 
 # array prediction
-print(clf.predict(count_vect.transform(["ceremony", "yayoi kusuma"])))
+print(clf.predict(count_vect.transform(["ceremony", "yayoi kusuma", "keceriaan"])))
 
 
