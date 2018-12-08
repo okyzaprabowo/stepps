@@ -12,4 +12,4 @@ class Prosa:
 		headers = {"Content-Type" : "application/json",
 			"x-api-key" : self.apiKey}
 		r = requests.post(url, data=json.dumps(payloads), headers=headers)
-		return r.json()['normalized_text']
+		return r.json()['text']
