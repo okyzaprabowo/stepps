@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+  var host = "localhost:8000";
 
   $(".submenu > a").click(function(e) {
     e.preventDefault();
@@ -17,7 +17,7 @@ $(document).ready(function(){
     }
   });
   var socialCurrencyTable = new Tabulator("#sc-table", {
-      ajaxURL:"http://192.168.10.10:8000/sc/get/", //ajax URL
+      ajaxURL:"http://"+host+"/sc/get/", //ajax URL
       layout:"fitColumns",
       columns:[                 //define the table columns
         {title:"Keyword", field:"keyword"},
@@ -31,7 +31,7 @@ $(document).ready(function(){
   });
 
   var triggerCurrencyTable = new Tabulator("#t-table", {
-    ajaxURL:"http://192.168.10.10:8000/t/get/", //ajax URL
+    ajaxURL:"http://"+host+"/t/get/", //ajax URL
     layout:"fitColumns",
     columns:[                 //define the table columns
       {title:"Keyword", field:"keyword"},
@@ -45,7 +45,7 @@ $(document).ready(function(){
 });
 
 var emotionCurrencyTable = new Tabulator("#e-table", {
-  ajaxURL:"http://192.168.10.10:8000/e/get/", //ajax URL
+  ajaxURL:"http://"+host+"/e/get/", //ajax URL
   layout:"fitColumns",
   columns:[                 //define the table columns
     {title:"Keyword", field:"keyword"},
@@ -59,7 +59,7 @@ var emotionCurrencyTable = new Tabulator("#e-table", {
 });
 
 var publicCurrencyTable = new Tabulator("#pu-table", {
-  ajaxURL:"http://192.168.10.10:8000/pu/get/", //ajax URL
+  ajaxURL:"http://"+host+"/pu/get/", //ajax URL
   layout:"fitColumns",
   columns:[                 //define the table columns
     {title:"Keyword", field:"keyword"},
@@ -73,7 +73,7 @@ var publicCurrencyTable = new Tabulator("#pu-table", {
 });
 
 var practicalCurrencyTable = new Tabulator("#pr-table", {
-  ajaxURL:"http://192.168.10.10:8000/pr/get/", //ajax URL
+  ajaxURL:"http://"+host+"/pr/get/", //ajax URL
   layout:"fitColumns",
   columns:[                 //define the table columns
     {title:"Keyword", field:"keyword"},
@@ -87,7 +87,7 @@ var practicalCurrencyTable = new Tabulator("#pr-table", {
 });
 
 var storyCurrencyTable = new Tabulator("#st-table", {
-  ajaxURL:"http://192.168.10.10:8000/st/get/", //ajax URL
+  ajaxURL:"http://"+host+"/st/get/", //ajax URL
   layout:"fitColumns",
   columns:[                 //define the table columns
     {title:"Keyword", field:"keyword"},

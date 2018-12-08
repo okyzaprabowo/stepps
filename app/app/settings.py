@@ -27,7 +27,8 @@ SECRET_KEY = ')zc_ywsns^*jdo&+^cw&%k^_%g-#6*ag%8ts0yrfy(*r-9tx1s'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.10.10', 
+    '192.168.10.10',
+    'localhost', 
 ]
 
 
@@ -40,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_adminlte',
-    'django_adminlte_theme',
+    # 'django_adminlte',
+    # 'django_adminlte_theme',
 ]
 
 MIDDLEWARE = [
