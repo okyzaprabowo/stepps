@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var host = "localhost:8000";
+  var host = "192.168.10.10:8000";
 
   $(".submenu > a").click(function(e) {
     e.preventDefault();

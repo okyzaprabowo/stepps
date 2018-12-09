@@ -1,0 +1,7 @@
+ntlk
+django
+sklearn
+pandas
+numpy
+Sastrawi
+simplejson
