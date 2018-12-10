@@ -177,17 +177,17 @@ def searchByUsername(username):
 	
 	print('====================')
 
-# for item in target:
-# 	searchByUsername(item)
+for item in target:
+	searchByUsername(item)
 
-cur = db.connect().cursor()
-cur.execute("SELECT * FROM dashboard_classificationresult")
-rows = cur.fetchall()
-for row in rows:
-	print(row[1])
-	cur.execute("SELECT COUNT(*) FROM dashboard_crawling WHERE engagement = 'H' AND caption_text LIKE '%?%'", (row[1],))
-	h_keyword_count = len(cur.fetchall())
-	print(h_keyword_count)
+# cur = db.connect().cursor()
+# cur.execute("SELECT * FROM dashboard_classificationresult")
+# rows = cur.fetchall()
+# for row in rows:
+# 	print(row[1])
+# 	cur.execute("SELECT COUNT(*) FROM dashboard_crawling WHERE engagement = 'H' AND caption_text LIKE '%?%'", (row[1],))
+# 	h_keyword_count = len(cur.fetchall())
+# 	print(h_keyword_count)
 	
 
 db.close()

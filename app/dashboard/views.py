@@ -15,6 +15,11 @@ from dashboard.models import *
 
 def index(request):
     if request.method == 'GET':
+        # h_keyword_sc = SteppsResult.objects.filter(label = 'st').order_by('-px_high')[:1]
+        # h_keyword_t = SteppsResult.objects.filter(label = 't').order_by('-px_high')[:1]
+        # h_keyword_e = SteppsResult.objects.filter(label = 'e').order_by('-px_high')[:1]
+        # h_keyword_pu = SteppsResult.objects.filter(label = 'pu').order_by('-px_high')[:1]
+        # context = {'h_keyword_sc':h_keyword_sc,'h_keyword_t':h_keyword_t,'h_keyword_e':h_keyword_e,'h_keyword_pu':h_keyword_pu,}
         return render(request, 'index.html')
 
 def default(o):
