@@ -6,8 +6,8 @@ from Database.DB import DB
 target = ['infobandungkuliner', 'bandung_eatery', 'duniakulinerbandung', 'esxplorebandung', 'bandungkunafe', 'bandung.banget', 'kulinerbandung', 'duniakulinerbdg', 'foodstories', 'bandungmakuta']
 
 # Login
-username="na_ratnaa"
-InstagramAPI = InstagramAPI(username, "ratnasanti123")
+username="contact_me"
+InstagramAPI = InstagramAPI(username, "contact_me")
 InstagramAPI.login()
 
 # Database

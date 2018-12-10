@@ -26,8 +26,8 @@ from Database.DB import DB
 target = ['infobandungkuliner', 'bandung_eatery', 'duniakulinerbandung', 'esxplorebandung', 'bandungkunafe', 'bandung.banget', 'kulinerbandung', 'duniakulinerbdg', 'foodstories', 'bandungmakuta']
 
 # Login
-username="na_ratnaa"
-InstagramAPI = InstagramAPI(username, "ratnasanti123")
+username="contact_me"
+InstagramAPI = InstagramAPI(username, "contact_me")
 InstagramAPI.login()
 
 # create stemmer
@@ -167,6 +167,8 @@ def searchByUsername(username):
 					stopwordsSentence = stopword.remove(standardSentence)
 					stemmedSentence = stemmer.stem(stopwordsSentence)
 					print("Raw -> ", sentence)
+					print("standardSentence ->", standardSentence)
+					print("stopwordsSentence ->", stopwordsSentence)
 					print("Stemming -> ", stemmedSentence)
 					classify(stemmedSentence)
 		else:
