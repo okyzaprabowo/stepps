@@ -6,14 +6,6 @@ from django.views.generic import TemplateView
 from django.template import Context, loader
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import model_to_dict
-
-import numpy as np
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import accuracy_score, precision_score, classification_report, confusion_matrix
-from sklearn.model_selection import train_test_split
-from sklearn.feature_extraction.text import TfidfTransformer
-import pandas as pd
 from collections import Counter
 import json
 import simplejson
@@ -23,69 +15,39 @@ from dashboard.models import *
 
 def index(request):
     if request.method == 'GET':
-        df = pd.read_csv('/home/vagrant/code/InstaCrawler/stepps/NaiveBayes/alltab.tsv', sep='\t', lineterminator='\r')
-
-        counter = Counter(df['label'].tolist())
-        top_10_varieties = {i[0]: idx for idx, i in enumerate(counter.most_common(10))}
-        df = df[df['label'].map(lambda x: x in top_10_varieties)]
-
-        description_list = df['text'].tolist()
-        varietal_list = [top_10_varieties[i] for i in df['label'].tolist()]
-        varietal_list = np.array(varietal_list)
-
-        count_vect = CountVectorizer()
-        x_train_counts = count_vect.fit_transform(description_list)
-
-
-        tfidf_transformer = TfidfTransformer()
-        x_train_tfidf = tfidf_transformer.fit_transform(x_train_counts)
-
-        train_x, test_x, train_y, test_y = train_test_split(x_train_tfidf, varietal_list, test_size=0.3)
-
-        clf = MultinomialNB().fit(train_x, train_y)
-        y_score = clf.predict(test_x)
-
-        n_right = 0
-        for i in range(len(y_score)):
-            if y_score[i] == test_y[i]:
-                n_right += 1
-
-        template = loader.get_template('index.html')
-        results="49.06%"
-        # Context is a normal Python dictionary whose keys can be accessed in the template index.html
-        context = {
-            'accuracy': n_right/float(len(test_y)) * 100,
-            'precision': precision_score(test_y, y_score, average=None),
-        }
-
-        return render(request, 'index.html', context=context)
+        # h_keyword_sc = SteppsResult.objects.filter(label = 'st').order_by('-px_high')[:1]
+        # h_keyword_t = SteppsResult.objects.filter(label = 't').order_by('-px_high')[:1]
+        # h_keyword_e = SteppsResult.objects.filter(label = 'e').order_by('-px_high')[:1]
+        # h_keyword_pu = SteppsResult.objects.filter(label = 'pu').order_by('-px_high')[:1]
+        # context = {'h_keyword_sc':h_keyword_sc,'h_keyword_t':h_keyword_t,'h_keyword_e':h_keyword_e,'h_keyword_pu':h_keyword_pu,}
+        return render(request, 'index.html')
 
 def default(o):
   if type(o) is datetime.date or type(o) is datetime.datetime:
     return o.isoformat()
 
 def result_sc(request):
-    steppsResults = SteppsResult.objects.filter(label = 'sc')
+    steppsResults = SteppsResult.objects.filter(label = 'sc')[:5]
     result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
     return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_t(request):
-    steppsResults = SteppsResult.objects.filter(label = 't')
+    steppsResults = SteppsResult.objects.filter(label = 't')[:5]
     result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
     return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_e(request):
-    steppsResults = SteppsResult.objects.filter(label = 'e')
+    steppsResults = SteppsResult.objects.filter(label = 'e')[:5]
     result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
     return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_pu(request):
-    steppsResults = SteppsResult.objects.filter(label = 'pu')
+    steppsResults = SteppsResult.objects.filter(label = 'pu')[:5]
     result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
     return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_pr(request):
-    steppsResults = SteppsResult.objects.filter(label = 'pr')
+    steppsResults = SteppsResult.objects.filter(label = 'pr')[:5]
     result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
     return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
@@ -97,3 +59,46 @@ def result_st(request):
 def login(request):
     template = loader.get_template('login.html')
     return render(request, 'login.html')
+
+def calculate_result(request):
+    # Select ALL Classified KEYWORDS
+    keywords = ClassificationResult.objects.all()
+    try:
+        for key in keywords:
+            # print(key.keyword)
+            h_keyword_count = Crawling.objects.filter(caption_text__icontains=key.keyword, engagement__icontains='H').count()
+            h_count = Crawling.objects.filter(engagement__icontains='H').count()
+            if(h_keyword_count > 0):
+                h_prob = h_keyword_count / h_count
+            else:
+                h_prob = 0
+            m_keyword_count = Crawling.objects.filter(caption_text__icontains=key.keyword, engagement__icontains='M').count()
+            m_count = Crawling.objects.filter(engagement__icontains='M').count()
+            if(m_keyword_count > 0):
+                m_prob = m_keyword_count / m_count
+            else:
+                m_prob = 0
+            l_keyword_count = Crawling.objects.filter(caption_text__icontains=key.keyword, engagement__icontains='L').count()
+            l_count = Crawling.objects.filter(engagement__icontains='L').count()
+            if(l_keyword_count > 0):
+                l_prob = l_keyword_count / l_count
+            else:
+                l_prob = 0
+            stepps_result = {'keyword':key.keyword, 'freq_high':h_keyword_count, 'px_high':h_prob, 'freq_medium': m_keyword_count, 'px_medium':m_prob, 'freq_low':l_keyword_count, 'px_low':l_prob, 'label':key.label}
+            print(stepps_result)
+            stepps_object = SteppsResult(
+                keyword = key.keyword,
+                freq_high = h_keyword_count,
+                px_high = h_prob,
+                freq_medium = m_keyword_count,
+                px_medium = m_prob,
+                freq_low = l_keyword_count,
+                px_low = l_prob,
+                label = key.label
+            )
+            stepps_object.save()
+
+    except Exception as e: print(e)
+    return HttpResponse("{'response' :200}")
+
+    

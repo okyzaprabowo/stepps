@@ -17,6 +17,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfTransformer
 import pandas as pd
 from collections import Counter
+from modulenorm.modNormalize import normalize
+from modulenorm.modTokenizing import tokenize
 
 # create stemmer
 factory = StemmerFactory()
@@ -31,9 +33,29 @@ data = stop_factory.get_stop_words()
 dictFile = os.path.dirname(os.path.realpath(__file__))+"/improveDict.txt"
 swChecker = SWChecker(dictFile)
 prosaHelper = Prosa()
-# print(dictFile)
+usenorm = normalize()
 
-sentence = "saya menginginkan barang saya kembali lagi seperti sedia kala saat Tuhan menciptakan" 
+sentence = "q cinta lo tp lo kaga sejak weekend lalu" 
+# text_norm = usenorm.enterNormalize(sentence) # normalisasi enter, 1 revw 1 baris
+# # text_norm = usenorm.lowerNormalize(text_norm) # normalisasi huruf besar ke kecil
+# text_norm = usenorm.repeatcharNormalize(text_norm) # normalisasi titik yang berulang
+# text_norm = usenorm.linkNormalize(text_norm) # normalisasi link dalam text
+# text_norm = usenorm.spacecharNormalize(text_norm) # normalisasi spasi karakter
+# text_norm = usenorm.ellipsisNormalize(text_norm) # normalisasi elepsis (…)
+
+# tok = tokenize() # panggil modul tokenisasi
+# text_norm = tok.WordTokenize(text_norm) # pisah tiap kata pada kalimat
+
+# text_norm = usenorm.spellNormalize(text_norm) # cek spell dari kata perkata
+# text_norm = usenorm.wordcNormalize(text_norm,2) # menyambung kata (malam-malam) (param: textlist, jmlh_loop)
+# text_norm = usenorm.stemmingNormalize(text_norm,'word') # mengubah ke bentuk kata dasar (text, type_data)
+
+# text_norm = ' '.join(text_norm) # menggabung kalimat tokenize dengan separate spasi
+
+# text_norm = usenorm.emoticonNormalize(text_norm) # menggabung struktur emoticon yang terpisah ([: - )] = [:-)])
+
+# print(text_norm)
+
 print("Raw -> ", sentence)
 standardSentence = swChecker.check(sentence)
 print("standardSentence -> ", standardSentence)

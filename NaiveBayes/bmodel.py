@@ -37,8 +37,9 @@ print("Accuracy:", accuracy_score(test_y, y_score))
 print("Precision:", precision_score(test_y, y_score, average=None))
 # print(classification_report(test_y, y_score))
 print(confusion_matrix(test_y, y_score))
+s = "ready stock produk fossil authentic promo disc 50 produk dapat promonya hanya di koleksifossil authentic promo brakhir tinggal 09 12 2018"
 
 # array prediction
-print(clf.predict(count_vect.transform(["ceremony", "yayoi kusuma", "keceriaan"])))
+print(clf.predict(count_vect.transform(s.split())))
 
 
