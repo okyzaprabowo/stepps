@@ -71,7 +71,7 @@ def searchByUsername(username):
 						engagement = 'H'
 					created = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-					saveData = {'username': username, 'follower_count': dataFollower, 'taken_at': item['taken_at'], 'like_count': dataLike, 'caption_text': item['caption']['text'], 'time_frame': timeFrame, 'engagement': engagement, 'created_at': created}
+					saveData = {'username': username, 'follower_count': dataFollower, 'taken_at': time.strftime('%Y-%m-%d %H:%M:%S'), 'like_count': dataLike, 'caption_text': item['caption']['text'], 'time_frame': timeFrame, 'engagement': engagement, 'created_at': created}
 
 					db.insertIntoCrawlingTable(saveData)
 		else:
