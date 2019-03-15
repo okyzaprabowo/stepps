@@ -19,6 +19,7 @@ import pandas as pd
 from collections import Counter
 from modulenorm.modNormalize import normalize
 from modulenorm.modTokenizing import tokenize
+from rake_nltk import Rake
 
 # create stemmer
 factory = StemmerFactory()
@@ -66,32 +67,41 @@ print("normalizeSentence -> " ,normalizeSentence)
 stemmedSentence = stemmer.stem(normalizeSentence)
 print("stemmedSentence -> ", stemmedSentence)
 
-df = pd.read_csv('/home/vagrant/code/InstaCrawler/stepps/NaiveBayes/alltab.tsv', sep='\t', lineterminator='\r')
+# df = pd.read_csv('/home/vagrant/code/InstaCrawler/stepps/NaiveBayes/alltab.tsv', sep='\t', lineterminator='\r')
 
-counter = Counter(df['label'].tolist())
-top_10_varieties = {i[0]: idx for idx, i in enumerate(counter.most_common(10))}
-df = df[df['label'].map(lambda x: x in top_10_varieties)]
+# counter = Counter(df['label'].tolist())
+# top_10_varieties = {i[0]: idx for idx, i in enumerate(counter.most_common(10))}
+# df = df[df['label'].map(lambda x: x in top_10_varieties)]
 
-description_list = df['text'].tolist()
-varietal_list = [top_10_varieties[i] for i in df['label'].tolist()]
-varietal_list = np.array(varietal_list)
+# description_list = df['text'].tolist()
+# varietal_list = [top_10_varieties[i] for i in df['label'].tolist()]
+# varietal_list = np.array(varietal_list)
 
-count_vect = CountVectorizer()
-x_train_counts = count_vect.fit_transform(description_list)
+# count_vect = CountVectorizer()
+# x_train_counts = count_vect.fit_transform(description_list)
 
 
-tfidf_transformer = TfidfTransformer()
-x_train_tfidf = tfidf_transformer.fit_transform(x_train_counts)
+# tfidf_transformer = TfidfTransformer()
+# x_train_tfidf = tfidf_transformer.fit_transform(x_train_counts)
 
-train_x, test_x, train_y, test_y = train_test_split(x_train_tfidf, varietal_list, test_size=0.3)
+# train_x, test_x, train_y, test_y = train_test_split(x_train_tfidf, varietal_list, test_size=0.3)
 
-clf = LinearSVC().fit(train_x, train_y)
-y_score = clf.predict(test_x)
+# clf = LinearSVC().fit(train_x, train_y)
+# y_score = clf.predict(test_x)
 
-print("Accuracy:", accuracy_score(test_y, y_score))
-print("Precision:", precision_score(test_y, y_score, average=None))
-# print(classification_report(test_y, y_score))
-print(confusion_matrix(test_y, y_score))
+# print("Accuracy:", accuracy_score(test_y, y_score))
+# print("Precision:", precision_score(test_y, y_score, average=None))
+# # print(classification_report(test_y, y_score))
+# print(confusion_matrix(test_y, y_score))
 
-# array prediction
-print(clf.predict(count_vect.transform(stemmedSentence.split())))
+# # array prediction
+# print(clf.predict(count_vect.transform(stemmedSentence.split())))
+
+# r = Rake() # Uses stopwords for english from NLTK, and all puntuation characters.Please note that "hello" is not included in the list of stopwords.
+
+# text='Hello World'
+# a=r.extract_keywords_from_text(sentence)
+# b=r.get_ranked_phrases()
+# c=r.get_ranked_phrases_with_scores()
+# print(b)
+# print(c)

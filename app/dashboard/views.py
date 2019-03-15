@@ -27,34 +27,143 @@ def default(o):
     return o.isoformat()
 
 def result_sc(request):
-    steppsResults = SteppsResult.objects.filter(label = 'sc')[:5]
-    result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
-    return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    filter = request.GET.get('filter', '')
+    if filter == "today":
+        steppsResults = SteppsResult.objects.filter(label = 'sc', freq_medium = '1')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "week":
+        steppsResults = SteppsResult.objects.filter(label = 'sc', freq_medium = '2')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "month":
+        steppsResults = SteppsResult.objects.filter(label = 'sc', freq_medium = '3')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "all":
+        steppsResults = SteppsResult.objects.filter(label = 'sc')
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    else:
+        steppsResults = SteppsResult.objects.filter(label = 'sc')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+
 
 def result_t(request):
-    steppsResults = SteppsResult.objects.filter(label = 't')[:5]
-    result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
-    return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    filter = request.GET.get('filter', '')
+    if filter == "today":
+        steppsResults = SteppsResult.objects.filter(label = 't', freq_medium = '1')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "week":
+        steppsResults = SteppsResult.objects.filter(label = 't', freq_medium = '2')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "month":
+        steppsResults = SteppsResult.objects.filter(label = 't', freq_medium = '3')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "all":
+        steppsResults = SteppsResult.objects.filter(label = 't')
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    else:
+        steppsResults = SteppsResult.objects.filter(label = 't')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_e(request):
-    steppsResults = SteppsResult.objects.filter(label = 'e')[:5]
-    result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
-    return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    filter = request.GET.get('filter', '')
+    if filter == "today":
+        steppsResults = SteppsResult.objects.filter(label = 'e', freq_medium = '1')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "week":
+        steppsResults = SteppsResult.objects.filter(label = 'e', freq_medium = '2')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "month":
+        steppsResults = SteppsResult.objects.filter(label = 'e', freq_medium = '3')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "all":
+        steppsResults = SteppsResult.objects.filter(label = 'e')
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    else:
+        steppsResults = SteppsResult.objects.filter(label = 'e')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_pu(request):
-    steppsResults = SteppsResult.objects.filter(label = 'pu')[:5]
-    result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
-    return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    filter = request.GET.get('filter', '')
+    if filter == "today":
+        steppsResults = SteppsResult.objects.filter(label = 'pu', freq_medium = '1')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "week":
+        steppsResults = SteppsResult.objects.filter(label = 'pu', freq_medium = '2')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "month":
+        steppsResults = SteppsResult.objects.filter(label = 'pu', freq_medium = '3')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "all":
+        steppsResults = SteppsResult.objects.filter(label = 'pu')
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    else:
+        steppsResults = SteppsResult.objects.filter(label = 'pu')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_pr(request):
-    steppsResults = SteppsResult.objects.filter(label = 'pr')[:5]
-    result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
-    return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    filter = request.GET.get('filter', '')
+    if filter == "today":
+        steppsResults = SteppsResult.objects.filter(label = 'pr', freq_medium = '1')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "week":
+        steppsResults = SteppsResult.objects.filter(label = 'pr', freq_medium = '2')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "month":
+        steppsResults = SteppsResult.objects.filter(label = 'pr', freq_medium = '3')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "all":
+        steppsResults = SteppsResult.objects.filter(label = 'pr')
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    else:
+        steppsResults = SteppsResult.objects.filter(label = 'pr')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def result_st(request):
-    steppsResults = SteppsResult.objects.filter(label = 'st')
-    result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
-    return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    filter = request.GET.get('filter', '')
+    if filter == "today":
+        steppsResults = SteppsResult.objects.filter(label = 'st', freq_medium = '1')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "week":
+        steppsResults = SteppsResult.objects.filter(label = 'st', freq_medium = '2')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "month":
+        steppsResults = SteppsResult.objects.filter(label = 'st', freq_medium = '3')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    elif filter == "all":
+        steppsResults = SteppsResult.objects.filter(label = 'st')
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
+    else:
+        steppsResults = SteppsResult.objects.filter(label = 'st')[:5]
+        result_list = list(steppsResults.values('keyword', 'freq_high', 'px_high', 'freq_medium', 'px_medium', 'freq_low', 'px_low', 'label', 'created_at'))
+        return HttpResponse(simplejson.dumps(result_list, use_decimal=True, default=default))
 
 def login(request):
     template = loader.get_template('login.html')
@@ -100,5 +209,6 @@ def calculate_result(request):
 
     except Exception as e: print(e)
     return HttpResponse("{'response' :200}")
+
 
     

@@ -26,8 +26,8 @@ from Database.DB import DB
 target = ['infobandungkuliner', 'bandung_eatery', 'duniakulinerbandung', 'esxplorebandung', 'bandungkunafe', 'bandung.banget', 'kulinerbandung', 'duniakulinerbdg', 'foodstories', 'bandungmakuta']
 
 # Login
-username="contact_me"
-InstagramAPI = InstagramAPI(username, "contact_me")
+username="verisubagja"
+InstagramAPI = InstagramAPI(username, "h312dym0")
 InstagramAPI.login()
 
 # create stemmer

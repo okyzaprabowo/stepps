@@ -13,6 +13,7 @@ class SteppsResult(models.Model):
     label = models.CharField(max_length=2, default="")
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
+
 class ClassificationResult(models.Model):
     keyword = models.TextField(max_length=1023)
     label = models.CharField(max_length=2, default="")

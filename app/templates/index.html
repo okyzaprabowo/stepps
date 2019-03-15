@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>STEPPS Dashboard</title>
+    <title>Social Media Analysis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     {% load static %}
@@ -12,6 +12,8 @@
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://code.jquery.com/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+		<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 		<script src="{% static 'js/custom.js' %}"></script>
 		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'tabulator/js/tabulator.min.js' %}"></script>
@@ -22,6 +24,14 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <style>
+    footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+    }
+    </style>
   </head>
   <body>
   	<div class="header">
@@ -30,7 +40,7 @@
 	           <div class="col-md-5">
 	              <!-- Logo -->
 	              <div class="logo">
-	                 <h1><a href="index.html">STEPPS Admin Dashboard</a></h1>
+	                 <h1><a href="index.html">Social Media Analysis</a></h1>
 	              </div>
 	           </div>
 	        </div>
@@ -44,39 +54,53 @@
                 <ul class="nav">
                     <!-- Main menu -->
 										<li class="current"><a href="{{ STATIC_URL }}"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-										<li class="current"><a href="http://192.168.10.10:8000"><i class="glyphicon glyphicon-home"></i> Logout</a></li>
+										<li class="current"><a href="http://thesmartmotion.pythonanywhere.com"><i class="glyphicon glyphicon-home"></i> Logout</a></li>
                 </ul>
              </div>
 		  </div>
 		  <div class="col-md-10">
-
-			<!-- Result table -->
-		  	<div class="row">
-				<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="content-box-header">
-								<div class="panel-title">Social Currency</div>
-								
+								<div class="panel-title">Filter</div>
+							</div>
+							<div class="content-box-large box-with-header">
+							    <button id="default-filter" type="button" class="btn btn-warning">Default</button>
+								<button id="today-filter" type="button" class="btn btn-primary">Hari Ini</button>
+                                <button id="week-filter" type="button" class="btn btn-danger">Minggu Ini</button>
+                                <button id="month-filter" type="button" class="btn btn-info">Bulan Ini</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Result table -->
+		  	<div class="row">
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="content-box-header">
+								<div class="panel-title">Interest</div>
+
 								<div class="panel-options">
 									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
 									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
 								</div>
 							</div>
 							<div class="content-box-large box-with-header">
-								
-								<br /><br />
-								<div id="sc-table"></div>
+								<canvas id="sc-table"></canvas>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="content-box-header">
-								<div class="panel-title">Trigger</div>
-								
+								<div class="panel-title">Moment</div>
+
 								<div class="panel-options">
 									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
 									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
@@ -84,108 +108,93 @@
 							</div>
 							<div id="example-table"></div>
 							<div class="content-box-large box-with-header">
-								
-								<br /><br />
-								<div id="t-table"></div>
+								<canvas id="t-table"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="content-box-header">
+								<div class="panel-title">Feelings</div>
+
+								<div class="panel-options">
+									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+								</div>
+							</div>
+							<div class="content-box-large box-with-header">
+								<canvas id="e-table"></canvas>
 							</div>
 						</div>
 					</div>
 				</div>
 			  </div>
 			  <div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="content-box-header">
-									<div class="panel-title">Emotion</div>
-									
+									<div class="panel-title">Public Figure</div>
+
 									<div class="panel-options">
 										<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
 										<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
 									</div>
 								</div>
 								<div class="content-box-large box-with-header">
-									
-									<br /><br />
-									<div id="e-table"></div>
+									<canvas id="pu-table"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="content-box-header">
-									<div class="panel-title">Public</div>
-									
-									<div class="panel-options">
-										<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-										<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-									</div>
-								</div>
-								<div class="content-box-large box-with-header">
-									
-									<br /><br />
-									<div id="pu-table"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				  </div>
-				  <div class="row">
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="content-box-header">
-										<div class="panel-title">Practical Value</div>
-										
-										<div class="panel-options">
-											<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-											<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-										</div>
-									</div>
-									<div class="content-box-large box-with-header">
-										
-										<br /><br />
-										<div id="pr-table"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="content-box-header">
-										<div class="panel-title">Story</div>
-										
-										<div class="panel-options">
-											<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
-											<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
-										</div>
-									</div>
-									<div class="content-box-large box-with-header">
-										
-										<br /><br />
-										<div id="st-table"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-			  
+    				<div class="col-md-4">
+    					<div class="row">
+    						<div class="col-md-12">
+    							<div class="content-box-header">
+    								<div class="panel-title">Tips</div>
+
+    								<div class="panel-options">
+    									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+    									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+    								</div>
+    							</div>
+    							<div class="content-box-large box-with-header">
+    								<canvas id="pr-table"></canvas>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    				<div class="col-md-4">
+    					<div class="row">
+    						<div class="col-md-12">
+    							<div class="content-box-header">
+    								<div class="panel-title">Story</div>
+
+    								<div class="panel-options">
+    									<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+    									<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+    								</div>
+    							</div>
+    							<div class="content-box-large box-with-header">
+    								<canvas id="st-table"></canvas>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+
 		  </div>
 		</div>
     </div>
 
     <footer>
-         <div class="container">
-         
+        <div class="container">
             <div class="copy text-center">
-               Copyright 2018 <a href='#'>STEPPS Dashboard</a>
+               Copyright 2018 &copy; <a href='http://sbm.itb.ac.id' target='_blank'>SBM ITB</a>
             </div>
-            
-         </div>
-		</footer>
+        </div>
+	</footer>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
   </body>
 </html>
